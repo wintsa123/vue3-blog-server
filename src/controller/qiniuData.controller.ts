@@ -568,7 +568,10 @@ class QiniuController {
           delete obj[key];
         });
         // eslint-disable-next-line no-await-in-loop
-        const count = await qiniuDataService.existName(obj.qiniu_key);
+        const count = await qiniuDataService.existName(
+          obj.qiniu_hash,
+          obj.qiniu_key
+        );
         if (count) {
           // eslint-disable-next-line no-continue
           continue;
@@ -702,9 +705,7 @@ class QiniuController {
   // 批量获取文件信息
   getBatchFileInfo = async (ctx: ParameterizedContext, next) => {
     const result = await this.batchFileInfo([
-      { srcBucket: 'hssblog', key: 'image/1678937683585girl.jpg' },
-      { srcBucket: 'hssblog', key: 'image/1659282130802monorepo.jpg' },
-      { srcBucket: 'hssblog', key: 'image/1659282130802monorepo.jpg' },
+      { srcBucket: 'sahuagong', key: 'image/1678937683585girl.jpg' },
     ]);
     successHandler({ ctx, data: result });
     await next();

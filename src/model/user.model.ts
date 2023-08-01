@@ -32,7 +32,7 @@ const model = sequelize.define<UserModel>(
     username: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      // unique: true,
+      unique: true,
       // unique: {
       //   name: '???',
       //   msg: '存在同名用户！',

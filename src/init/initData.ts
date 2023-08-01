@@ -236,47 +236,12 @@ const initRoleAuth = () => {
 
 const initFrontend = (): IFrontend[] => [
   {
-    key: 'allow_qq_login',
-    value: '1',
-    desc: "是否开启qq登录（'1'开启；'2'关闭）",
-    type: 'switch',
-  },
-  {
-    key: 'allow_github_login',
-    value: '1',
-    desc: "是否开启github登录（'1'开启；'2'关闭）",
-    type: 'switch',
-  },
-  {
-    key: 'allow_email_login',
-    value: '1',
-    desc: "是否开启email登录（'1'开启；'2'关闭）",
-    type: 'switch',
-  },
-  {
     key: 'allow_comment',
     value: '1',
     desc: "是否开启留言（'1'开启；'2'关闭）",
     type: 'switch',
   },
-  {
-    key: 'allow_link',
-    value: '1',
-    desc: "是否开启友链（'1'开启；'2'关闭）",
-    type: 'switch',
-  },
-  {
-    key: 'allow_shutdown_modal',
-    value: '2',
-    desc: "是否开启停机弹窗（'1'开启；'2'关闭）",
-    type: 'switch',
-  },
-  {
-    key: 'shutdown_modal_content',
-    value: '停机中，预计30分钟左右恢复',
-    desc: '停机弹窗内容',
-    type: 'markdown',
-  },
+
   {
     key: 'allow_home_modal',
     value: '2',
@@ -290,10 +255,40 @@ const initFrontend = (): IFrontend[] => [
     type: 'markdown',
   },
   {
-    key: 'about_me',
-    value: '',
-    desc: '关于我',
-    type: 'markdown',
+    key: 'allow_aboutMe',
+    value: '2',
+    desc: '首页链接该(关于我们)模块',
+    type: 'switch',
+  },
+  {
+    key: 'allow_server',
+    value: '2',
+    desc: '首页链接该(工厂环境)模块',
+    type: 'switch',
+  },
+  {
+    key: 'allow_server',
+    value: '2',
+    desc: '首页链接该(联系我们)模块',
+    type: 'switch',
+  },
+  {
+    key: 'allow_product',
+    value: '2',
+    desc: '首页链接该(产品中心)模块',
+    type: 'switch',
+  },
+  {
+    key: 'allow_link',
+    value: '2',
+    desc: '首页链接该(合作伙伴)模块是否开启友链',
+    type: 'switch',
+  },
+  {
+    key: 'Type_link',
+    value: '1',
+    desc: '友链使用自定义或者格式化模板(默认用格式化模板)',
+    type: 'switch',
   },
 ];
 
@@ -330,10 +325,71 @@ const initType = () => {
   ];
   return defaultRole;
 };
-
+const Article = () => {
+  const defaultRole = [
+    {
+      id: 1,
+      title: '',
+      status: 2,
+    },
+    {
+      id: 2,
+      title: '关于我们',
+      status: 1,
+    },
+    {
+      id: 3,
+      title: '工厂环境',
+      status: 1,
+    },
+    {
+      id: 4,
+      title: '合作伙伴',
+      status: 1,
+    },
+    {
+      id: 5,
+      title: '联系我们',
+      status: 1,
+    },
+  ];
+  return defaultRole;
+};
+const ArticleType = () => {
+  const defaultRole = [
+    {
+      id: 1,
+      article_id: 0,
+      type_id: 0,
+    },
+    {
+      id: 2,
+      article_id: 2,
+      type_id: 2,
+    },
+    {
+      id: 3,
+      article_id: 3,
+      type_id: 3,
+    },
+    {
+      id: 4,
+      article_id: 4,
+      type_id: 4,
+    },
+    {
+      id: 5,
+      article_id: 5,
+      type_id: 5,
+    },
+  ];
+  return defaultRole;
+};
 export const bulkCreateAuth = initAuth();
 export const bulkCreateRole = initRole();
 export const bulkCreateRoleAuth = initRoleAuth();
 export const bulkFrontend = initFrontend();
 export const bulkInteractionStatis = initInteractionStatis();
 export const bulkinitType = initType();
+export const ArticleInit = Article();
+export const ArticleTypeInit = ArticleType();

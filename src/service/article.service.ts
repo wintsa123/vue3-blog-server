@@ -32,13 +32,16 @@ class ArticleService {
 
   /** 查找文章详情 */
   async findArticleDetail(id: number, from_user_id = -1) {
-    await articleModel.update(
-      { click: literal('`click` +1') },
-      {
-        where: { id },
-        silent: true, // silent如果为true，则不会更新updateAt时间戳。
-      }
-    );
+    if (from_user_id !== 1) {
+      await articleModel.update(
+        { click: literal('`click` +1') },
+        {
+          where: { id },
+          silent: true, // silent如果为true，则不会更新updateAt时间戳。
+        }
+      );
+    }
+
     const result = await articleModel.findOne({
       include: [
         {
@@ -247,7 +250,7 @@ class ArticleService {
       // attributes: [[fn('count', col('comments.id')), 'comment_total']],
       attributes: {
         // include: [[literal(`(select count(comments.id))`), 'comment_total']],
-        exclude: ['content'],
+        // exclude: ['content'],
         include: [
           // [fn('count', col('comments.id')), 'comment_total'],
           // [fn('count', col('stars.id')), 'star_total'],
@@ -278,6 +281,9 @@ class ArticleService {
     });
     result.rows.forEach((item) => {
       const v: any = item.get();
+      console.log('1111111111111');
+      console.log(v);
+
       v.star_total = v.stars.length;
       v.comment_total = v.comments.length;
       delete v.stars;

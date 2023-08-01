@@ -100,6 +100,8 @@ class LinkService {
 
   /** 创建友链 */
   async create({ email, name, avatar, desc, url, status }: ILink) {
+    console.log('status', status);
+
     const result = await linkModel.create({
       email,
       name,

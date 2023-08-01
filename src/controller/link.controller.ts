@@ -2,9 +2,7 @@ import { ParameterizedContext } from 'koa';
 
 import { verifyUserAuth } from '@/app/auth/verifyUserAuth';
 import successHandler from '@/app/handler/success-handle';
-import { QQ_EMAIL_USER } from '@/config/secret';
 import { ALLOW_HTTP_CODE } from '@/constant';
-import otherController from '@/controller/other.controller';
 import { ILink, IList } from '@/interface';
 import { CustomError } from '@/model/customError.model';
 import linkService from '@/service/link.service';
@@ -77,13 +75,7 @@ class LinkController {
       url,
       status,
     });
-    if (status === 1 && email) {
-      await otherController.sendEmail(
-        QQ_EMAIL_USER,
-        `友链申请审核通过！`,
-        `你在自然博客申请的友链（${name!}）已审核通过！`
-      );
-    }
+
     successHandler({ ctx });
 
     await next();
@@ -91,7 +83,7 @@ class LinkController {
 
   async create(ctx: ParameterizedContext, next) {
     const { email, name, avatar, desc, url, status }: ILink = ctx.request.body;
-    await linkService.create({
+    const result = await linkService.create({
       email,
       name,
       avatar,
@@ -99,12 +91,8 @@ class LinkController {
       url,
       status: isAdmin(ctx) ? status : 2,
     });
-    await otherController.sendEmail(
-      QQ_EMAIL_USER,
-      `收到${name!}的友链申请`,
-      `收到:${name!}的友链申请，请及时处理~`
-    );
-    successHandler({ ctx });
+
+    successHandler({ ctx, data: result });
 
     await next();
   }

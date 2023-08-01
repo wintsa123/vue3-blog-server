@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-import { IMonit, IList } from '@/interface';
+import { IList, IMonit } from '@/interface';
 import monitModel from '@/model/monit.model';
 import { handlePaging } from '@/utils';
 

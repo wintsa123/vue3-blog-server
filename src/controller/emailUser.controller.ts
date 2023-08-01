@@ -16,7 +16,7 @@ import { CustomError } from '@/model/customError.model';
 import emailUserService from '@/service/emailUser.service';
 import thirdUserService from '@/service/thirdUser.service';
 import userService from '@/service/user.service';
-import { emailContentTemplate, randomNumber, getRandomString } from '@/utils';
+import { emailContentTemplate, getRandomString, randomNumber } from '@/utils';
 
 interface IKey {
   prefix: string;

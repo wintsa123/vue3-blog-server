@@ -7,7 +7,6 @@ import { ALLOW_HTTP_CODE } from '@/constant';
 import { IArticle, IList } from '@/interface';
 import { CustomError } from '@/model/customError.model';
 import articleService from '@/service/article.service';
-import articletype from '@/service/articleType.service';
 import tagService from '@/service/tag.service';
 import typeService from '@/service/type.service';
 import { arrayUnique, isAdmin } from '@/utils';
@@ -165,6 +164,7 @@ class ArticleController {
       rangTimeStart,
       rangTimeEnd,
     }: IList<IArticle> = ctx.request.query;
+
     const result = await articleService.getList({
       id,
       orderBy,
@@ -185,9 +185,21 @@ class ArticleController {
   }
 
   async type(ctx: ParameterizedContext, next) {
-    const { typename } = ctx.request.query;
-    const id = await typeService.findid(typename as string);
-    const result = await articletype.Counttypeid(id as number);
+    const {
+      typename,
+      nowPage = '',
+      pageSize = '',
+    }: IList<IArticle> = ctx.request.query;
+    const types = await typeService.findid(typename as string);
+    const typesArray = types !== undefined ? [types] : undefined;
+    const result = await articleService.getList({
+      types: typesArray,
+      nowPage,
+      pageSize,
+      orderBy: 'asc',
+      orderName: 'id',
+    });
+    // const result = await articletype.Counttypeid(id as number);
     successHandler({ ctx, data: result });
     await next();
   }

@@ -88,6 +88,7 @@ function runServer() {
       await InitFirst.initFrontend();
       await InitFirst.initInteractionStatis();
       await InitFirst.initAdminUser();
+      await InitFirst.Article();
 
       app.use(apiBeforeVerify); // 注意：需要在所有路由加载前使用这个中间件
       loadAllRoutes(app); // 加载所有路由

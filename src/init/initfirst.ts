@@ -1,5 +1,7 @@
 import sequelize from '@/config/mysql';
 import {
+  ArticleInit,
+  ArticleTypeInit,
   bulkCreateAuth,
   bulkCreateRole,
   bulkCreateRoleAuth,
@@ -8,6 +10,8 @@ import {
   bulkinitType,
 } from '@/init/initData';
 import { initDb } from '@/init/initDb';
+import ArticleModel from '@/model/article.model';
+import ArticleTypeModel from '@/model/articleType.model';
 import AuthModel from '@/model/auth.model';
 import dayDataModel from '@/model/dayData.model';
 import frontendModel from '@/model/frontend.model';
@@ -82,12 +86,11 @@ class InitFirst {
   async initDatabase() {
     const queryInterface = sequelize.getQueryInterface();
     const allTables = await queryInterface.showAllTables();
-
     if (!allTables.length) {
       await initDb(1);
       console.log(chalkSUCCESS('初始化数据库成功！'));
     } else {
-      await initDb(2);
+      await initDb(1);
       console.log(chalkWARN('已经初始化过数据库了，不能再初始化了！'));
     }
   }
@@ -150,6 +153,19 @@ class InitFirst {
       console.log(chalkSUCCESS('初始化互动统计成功！'));
     } else {
       console.log(chalkWARN('已经初始化过初始化互动统计，不能再初始化了！'));
+    }
+  }
+
+  // 初始化基础文章数据
+  async Article() {
+    const count = await ArticleModel.count();
+    if (count === 0) {
+      await ArticleModel.bulkCreate(ArticleInit);
+      await ArticleTypeModel.bulkCreate(ArticleTypeInit);
+
+      console.log(chalkSUCCESS('初始化基础文章成功'));
+    } else {
+      console.log(chalkWARN('已经初始化过分类了，不能再初始化了！'));
     }
   }
 }

@@ -414,6 +414,7 @@ export interface IRoleAuth {
 }
 
 export type IList<T> = {
+  typename?: string;
   nowPage?: string;
   pageSize?: string;
   orderBy?: string;

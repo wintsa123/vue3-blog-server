@@ -240,9 +240,9 @@ class QiniuDataService {
     return result;
   }
 
-  async existName(qiniu_key: string) {
+  async existName(qiniu_hash: string, qiniu_key: string) {
     const result = await qiniuDataModel.count({
-      where: { qiniu_key },
+      where: { qiniu_hash, qiniu_key },
     });
     return result;
   }

@@ -7,10 +7,10 @@ import { CustomError } from '@/model/customError.model';
 const schema = Joi.object({
   id: Joi.number(),
   email: Joi.string().min(3).max(50),
-  name: Joi.string().min(3).max(50),
-  avatar: Joi.string().min(5).max(80),
-  desc: Joi.string().min(3).max(50),
-  url: Joi.string().min(5).max(80),
+  name: Joi.string().min(1).max(50),
+  avatar: Joi.string().allow('').allow(null),
+  desc: Joi.string().allow('').allow(null),
+  url: Joi.string().allow('').allow(null),
   status: [1, 2],
 });
 
