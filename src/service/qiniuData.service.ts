@@ -72,7 +72,8 @@ class QiniuDataService {
     return '数据库已有';
   }
 
-  async getPrefixList(prefix) {
+  async getPrefixList(prefix: string) {
+    console.log(prefix);
     const result = await qiniuDataModel.findAll({
       where: {
         prefix,

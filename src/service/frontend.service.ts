@@ -83,7 +83,7 @@ class FrontendService {
     if (keyWord) {
       const keyWordWhere = [
         {
-          email: {
+          key: {
             [Op.like]: `%${keyWord}%`,
           },
         },
@@ -96,6 +96,9 @@ class FrontendService {
         [Op.lt]: new Date(+rangTimeEnd!),
       };
     }
+    console.log(allWhere);
+    console.log('11111111111111111111');
+
     // @ts-ignore
     const result = await frontendModel.findAndCountAll({
       order: [[orderName, orderBy]],
@@ -105,6 +108,8 @@ class FrontendService {
         ...allWhere,
       },
     });
+    console.log(result);
+
     return handlePaging(result, nowPage, pageSize);
   }
 
@@ -123,15 +128,16 @@ class FrontendService {
     return result;
   }
 
-  async update({ id, key, value, desc }: IFrontend) {
+  async update({ id, value, desc }: IFrontend) {
     const result = await frontendModel.update(
       {
-        key,
-        value,
-        desc,
+        ...(value ? { value } : {}),
       },
       { where: { id } }
     );
+    console.log(value);
+    console.log('aaaaaaaaaaaaaaaa');
+    console.log(result);
     return result;
   }
 

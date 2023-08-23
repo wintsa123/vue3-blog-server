@@ -89,7 +89,8 @@ async function isPass(ip: string) {
 export const apiBeforeVerify = async (ctx: ParameterizedContext, next) => {
   console.log('apiBeforeVerify中间件');
   const url = ctx.request.path;
-  const ip = (ctx.request.headers['x-real-ip'] as string) || '127.0.0.1';
+  const ip =
+    (ctx.request.headers['x-real-ip'] as string) || '127.0.0.1' || 'localhost';
   const admin = isAdmin(ctx);
   const consoleEnd = () => {
     console.log(

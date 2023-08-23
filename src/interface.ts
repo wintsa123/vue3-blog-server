@@ -64,7 +64,7 @@ export interface IInteraction {
 export interface IFrontend {
   id?: number;
   key?: string;
-  value?: string;
+  value?: string | number;
   desc?: string;
   type?: IFormType;
   created_at?: string;
@@ -300,7 +300,7 @@ export interface IMonit {
   deleted_at?: string;
 }
 export interface IUser {
-  id?: string;
+  id?: string | number;
   username?: string;
   password?: string;
   email?: string;

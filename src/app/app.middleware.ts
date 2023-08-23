@@ -24,7 +24,7 @@ export const catchErrorMiddle = async (ctx: ParameterizedContext, next) => {
       // 将请求写入日志表
       const { userInfo } = await authJwt(ctx);
       logController.common.create({
-        user_id: userInfo?.id || -1,
+        user_id: (userInfo?.id || -1) as number,
         api_user_agent: ctx.request.headers['user-agent'],
         api_from: isAdmin(ctx) ? 2 : 1,
         api_body: JSON.stringify(ctx.request.body || {}),
@@ -158,9 +158,12 @@ export const corsMiddle = async (ctx: ParameterizedContext, next) => {
     'Content-Type, Content-Length, Authorization, Accept, X-Requested-With'
   ); // 允许的请求头
   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS'); // 允许的方法
-
+  console.log(ctx.header);
   // 如果是本地环境
-  if (ctx.header.origin?.indexOf('http://127.0.0.1') !== -1) {
+  if (
+    ctx.header.origin?.indexOf('http://127.0.0.1') !== -1 ||
+    ctx.header.origin?.indexOf('http://localhost') !== -1
+  ) {
     ctx.set('Access-Control-Allow-Credentials', 'true'); // 允许携带cookie，Access-Control-Allow-Origin为*的时候不能设置Access-Control-Allow-Credentials:true！
     ctx.set('Access-Control-Allow-Origin', ctx.header.origin!); // 允许的源
   } else {

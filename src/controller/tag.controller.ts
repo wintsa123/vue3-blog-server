@@ -70,6 +70,7 @@ class TagController {
   }
 
   async create(ctx: ParameterizedContext, next) {
+    console.log(ctx);
     const hasAuth = await verifyUserAuth(ctx);
     if (!hasAuth) {
       throw new CustomError(
@@ -81,7 +82,7 @@ class TagController {
     const { name, color }: ITag = ctx.request.body;
     const result = await tagService.findByName(name as string);
     if (result) {
-      successHandler({ ctx, message: '已经存在了' });
+      successHandler({ ctx, data: result.id, message: '已经存在了' });
       return;
     }
     const id = await tagService.create({ name, color });
@@ -121,6 +122,9 @@ class TagController {
         ALLOW_HTTP_CODE.paramsError
       );
     }
+
+    // const result = await articleService.getList({ tags: [id] });
+    // console.log(result);
     await tagService.delete(id);
     successHandler({ ctx });
 

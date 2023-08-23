@@ -90,7 +90,7 @@ class InitFirst {
       await initDb(1);
       console.log(chalkSUCCESS('初始化数据库成功！'));
     } else {
-      await initDb(1);
+      await initDb(3);
       console.log(chalkWARN('已经初始化过数据库了，不能再初始化了！'));
     }
   }

@@ -87,12 +87,10 @@ class FrontendController {
       );
     }
     const id = +ctx.params.id;
-    const { key, value, desc }: IFrontend = ctx.request.body;
+    const { value }: IFrontend = ctx.request.body;
     await frontendService.update({
       id,
-      key,
       value,
-      desc,
     });
     successHandler({ ctx });
     await next();

@@ -237,15 +237,15 @@ const initRoleAuth = () => {
 const initFrontend = (): IFrontend[] => [
   {
     key: 'allow_comment',
-    value: '1',
-    desc: "是否开启留言（'1'开启；'2'关闭）",
+    value: 0,
+    desc: '是否开启留言',
     type: 'switch',
   },
 
   {
     key: 'allow_home_modal',
-    value: '2',
-    desc: "是否开启首页弹窗（'1'开启；'2'关闭）",
+    value: 0,
+    desc: '是否开启首页弹窗',
     type: 'switch',
   },
   {
@@ -256,37 +256,37 @@ const initFrontend = (): IFrontend[] => [
   },
   {
     key: 'allow_aboutMe',
-    value: '2',
+    value: 0,
     desc: '首页链接该(关于我们)模块',
     type: 'switch',
   },
   {
     key: 'allow_server',
-    value: '2',
+    value: 0,
     desc: '首页链接该(工厂环境)模块',
     type: 'switch',
   },
   {
-    key: 'allow_server',
-    value: '2',
+    key: 'allow_Callme',
+    value: 0,
     desc: '首页链接该(联系我们)模块',
     type: 'switch',
   },
   {
     key: 'allow_product',
-    value: '2',
+    value: 0,
     desc: '首页链接该(产品中心)模块',
     type: 'switch',
   },
   {
     key: 'allow_link',
-    value: '2',
+    value: 0,
     desc: '首页链接该(合作伙伴)模块是否开启友链',
     type: 'switch',
   },
   {
     key: 'Type_link',
-    value: '1',
+    value: 1,
     desc: '友链使用自定义或者格式化模板(默认用格式化模板)',
     type: 'switch',
   },

@@ -25,7 +25,6 @@ const model = sequelize.define<TagModel>(
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true,
     },
     color: {
       type: DataTypes.STRING(50),

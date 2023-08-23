@@ -653,10 +653,11 @@ class QiniuController {
 
   // 根据前缀获取data
   async getListByprefix(ctx: ParameterizedContext, next) {
-    console.log(ctx.request.query);
-    const { prefix } = ctx.request.query;
+    let { prefix } = ctx.request.query;
+    if (prefix && !(prefix as string).endsWith('/')) {
+      prefix = (prefix as string).concat('/');
+    }
     const result = await qiniuDataService.getPrefixList(`${prefix}`);
-    // console.log(result);
     successHandler({ ctx, data: result });
     await next();
   }
@@ -844,6 +845,8 @@ class QiniuController {
     qiniuOfficialRes.forEach((item) => {
       qiniuOfficialResMap[item.key] = item;
     });
+    // @ts-ignore
+
     qiniuDataRes.rows.forEach((item) => {
       // @ts-ignore
       qiniuDataResMap[item.qiniu_key] = item;
