@@ -28,7 +28,7 @@ export interface IQiniuKey {
 const qiniuConfConfig = new qiniu.conf.Config();
 
 // @ts-ignore
-qiniuConfConfig.zone = qiniu.zone.Zone_z2; // https://developer.qiniu.com/kodo/1289/nodejs#general-uptoken，qiniu.zone.Zone_z2代表华南
+qiniuConfConfig.zone = qiniu.zone.Zone_as0; // https://developer.qiniu.com/kodo/1289/nodejs#general-uptoken，qiniu.zone.Zone_z2代表华南
 
 class QiniuUtils {
   config = qiniuConfConfig;
@@ -418,6 +418,9 @@ class QiniuUtils {
       limit: prop.limit, // 每次返回的最大列举文件数量，最大值1000
       delimiter: prop.delimiter, // 指定目录分隔符
     };
+    console.log(options);
+    console.log(bucketManager);
+
     return new Promise<{
       flag: boolean;
       resultUrl?: string;

@@ -11,6 +11,8 @@ import { catchErrorMiddle, corsMiddle } from '@/app/app.middleware';
 import errorHandler from '@/app/handler/error-handle';
 import { apiBeforeVerify } from '@/app/verify.middleware';
 import { connectMysql, dbName } from '@/config/mysql';
+// import { connectRedis } from '@/config/redis';
+// import { createPubSub } from '@/config/redis/pub.ts';
 import { connectWebSocket } from '@/config/websocket';
 import {
   PROJECT_ENV,

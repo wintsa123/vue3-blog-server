@@ -119,16 +119,26 @@ class VisitorLogController {
     const ip = (ctx.request.headers['x-real-ip'] as string) || '127.0.0.1';
     // 这个接口的userInfo不是必须的
     const { userInfo } = await authJwt(ctx);
-    if (ip === '127.0.0.1') {
-      successHandler({ ctx, data: '开发环境下调用' });
+    if (false) {
+      successHandler({ ctx, data: '开发环境下调用', message: 'success' });
     } else {
-      const ip_data = await positionService.get(ip);
-      const result = await visitorLogService.create({
+      const histroy = await visitorLogService.getDayVisitTotal({
+        orderBy: 'asc',
+        orderName: 'ip',
+        startTime: '',
+        endTime: '',
+      });
+
+      const isflag = histroy.data.some((e) => e.ip === ip);
+
+      const ip_data = isflag ? null : await positionService.get(ip);
+
+      await visitorLogService.create({
         ip,
         user_id: userInfo?.id || -1,
-        ip_data: JSON.stringify(ip_data),
+        ip_data: isflag ? null : JSON.stringify(ip_data),
       });
-      successHandler({ ctx, data: result });
+      successHandler({ ctx, message: 'success', data: isflag });
     }
 
     await next();

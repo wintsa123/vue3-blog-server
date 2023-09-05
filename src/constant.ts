@@ -27,8 +27,8 @@ export const SECRETTEMP_FILE = path.join(
     : './config/secretTemp.js'
 ); // 秘钥文件模板
 export const QQ_MAIL_CONFIG = {
-  from: '2274751790@qq.com', // sender address
-  to: '2274751790@qq.com', // list of receivers
+  from: '770775984@qq.com', // sender address
+  to: '770775984@qq.com', // list of receivers
 };
 
 export const ERROR_HTTP_CODE = {
@@ -148,9 +148,9 @@ export enum QINIU_UPLOAD_PROGRESS_TYPE {
 }
 export const QINIU_PROGRESS_LOG_V1 = path.join(UPLOAD_DIR, 'progressv1.log'); // 上传文件接口接收到的文件存放的目录
 export const QINIU_PROGRESS_LOG_V2 = path.join(UPLOAD_DIR, 'progressv2.log'); // 上传文件接口接收到的文件存放的目录
-// export const QINIU_CDN_DOMAIN = 'ryfqr3djk.hn-bkt.clouddn.com';
-// export const QINIU_CDN_URL = 'ryfqr3djk.hn-bkt.clouddn.com/';
-export const QINIU_BUCKET = 'huagongsa'; // 七牛云bucket
+export const QINIU_CDN_DOMAIN = 'http://wintsa.club';
+export const QINIU_CDN_URL = 'http://wintsa.club';
+export const QINIU_BUCKET = 'wintsa'; // 七牛云bucket
 export enum QINIU_PREFIX {
   'homeImage/' = 'homeImage/',
   'backupsDatabase/' = 'backupsDatabase/',

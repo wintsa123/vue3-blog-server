@@ -302,6 +302,9 @@ class ArticleService {
     rangTimeStart,
     rangTimeEnd,
   }: IList<IArticle>) {
+    if (!keyWord) {
+      return handlePaging({ rows: [] }, nowPage, pageSize);
+    }
     let offset;
     let limit;
     if (nowPage && pageSize) {
@@ -343,6 +346,12 @@ class ArticleService {
       limit,
       offset,
     });
+    console.log('first');
+
+    result.rows = result.rows.filter(
+      (e: any) => ![0, 1, 2, 3, 4, 5].includes(e.id)
+    );
+
     return handlePaging(result, nowPage, pageSize);
   }
 

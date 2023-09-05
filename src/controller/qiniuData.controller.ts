@@ -815,6 +815,7 @@ class QiniuController {
 
     let { marker } = respBody;
     const { items } = respInfo.data;
+
     list.push(...items);
     while (marker) {
       // eslint-disable-next-line no-await-in-loop

@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-import { IVisitorLog, IList } from '@/interface';
+import { IList, IVisitorLog } from '@/interface';
 import visitorLogModel from '@/model/visitorLog.model';
 import { handlePaging } from '@/utils';
 
@@ -22,9 +22,22 @@ class VisitorLogService {
   /** 获取当天访客访问数据 */
   async getDayVisitTotal({ orderBy, orderName, startTime, endTime }) {
     let timeWhere: any = null;
-    if (startTime && startTime) {
+    if (startTime && endTime) {
       timeWhere = {
         [Op.between]: [new Date(startTime), new Date(endTime)],
+      };
+    } else if (!startTime && !endTime) {
+      const today = new Date();
+
+      // 获取今天的开始时间（凌晨 0 点）
+      const startOfToday = new Date(today);
+      startOfToday.setHours(0, 0, 0, 0);
+
+      // 获取今天的结束时间（晚上 24 点）
+      const endOfToday = new Date(today);
+      endOfToday.setHours(23, 59, 59, 999);
+      timeWhere = {
+        [Op.between]: [startOfToday, endOfToday],
       };
     }
     const result = await visitorLogModel.findAll({
@@ -33,7 +46,9 @@ class VisitorLogService {
       order: [[orderName, orderBy]],
       where: { created_at: timeWhere },
     });
+    console.log(result);
     return {
+      data: result,
       visitor_total: result.length,
       visit_total: result.reduce((pre, cur) => {
         return cur.get().total! + pre;
